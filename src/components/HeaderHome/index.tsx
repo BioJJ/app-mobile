@@ -1,12 +1,13 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
-import { Platform } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AuthUse } from '../../contexts/auth'
 import { HeaderEmployeeIcons } from '../HeaderEmployeeIcons'
 import { HeaderInfo } from '../HeaderInfo'
-import { Container } from './style'
+import { Button, Container } from './style'
+import { MaterialIcons } from '@expo/vector-icons'
 
 interface HeaderProps {
 	title: string
@@ -26,7 +27,7 @@ export function HeaderHome({ type, status, aux }: Readonly<HeaderHomeProps>) {
 	const [headerProps, setHeaderProps] = useState<HeaderProps>()
 	const [iconProps, setIconProps] = useState<boolean>(false)
 	const [iconListProps, setIconListProps] = useState<boolean>(false)
-
+	const height = Dimensions.get('window').height
 	const insets = useSafeAreaInsets()
 	useFocusEffect(
 		useCallback(() => {
@@ -60,6 +61,16 @@ export function HeaderHome({ type, status, aux }: Readonly<HeaderHomeProps>) {
 			<HeaderInfo headerProps={headerProps} />
 
 			{iconProps && !aux && <HeaderEmployeeIcons status={status} aux={aux} />}
+
+			{aux && (
+				<Button onPress={handleListClose}>
+					<MaterialIcons
+						name="close-fullscreen"
+						size={height > 1365 ? 32 : height < 933 ? 22 : 22}
+						color="#FFF"
+					/>
+				</Button>
+			)}
 		</Container>
 	)
 }
