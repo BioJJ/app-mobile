@@ -1,11 +1,11 @@
-import { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { RefreshControl } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 
 import { HeaderHome } from '../../components/HeaderHome'
 import { AuthUse } from '../../contexts/auth'
 import { OfflineQueueUse } from '../../contexts/OfflineQueue'
-import { Container, FlatListData } from './style'
+import { Container, FlatListData, Title } from './style'
 import { CarUse } from '../../contexts/Car'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { BrandInfo } from '../../components/BrandInfo'
@@ -60,7 +60,10 @@ const Home = () => {
 						<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 					}
 					ListHeaderComponent={() => (
-						<HeaderHome type={'employee'} status={status} />
+						<>
+							<HeaderHome type={'employee'} status={status} />
+							<Title>Marcas</Title>
+						</>
 					)}
 					style={{ width: '100%' }}
 				/>

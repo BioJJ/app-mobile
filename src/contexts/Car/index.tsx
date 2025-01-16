@@ -16,7 +16,7 @@ export interface CarType {
 	loading: boolean
 	globalLoading: boolean
 	brands: Brands[]
-	models: Model[]
+	models: Model
 	LogOut: () => Promise<void>
 	GetBrands: () => Promise<void>
 	GetModels: (brandID: string) => Promise<void>
@@ -25,18 +25,12 @@ export interface CarType {
 export const CarContext = createContext<CarType>({} as CarType)
 
 export const CarProvider: React.FC<CarProviderProps> = ({ children }) => {
-	const {
-		GetBrandsData,
-		GetModelsData,
-		GetBrandsStorage,
-		GetModelsStorage,
-		SignOut
-	} = CarService
+	const { GetBrandsData, GetModelsData, GetBrandsStorage, SignOut } = CarService
 	const [loading, setLoading] = useState(false)
 	const [globalLoading, setGlobalLoading] = useState(false)
 
 	const [brands, setBrands] = useState<Brands[]>([])
-	const [models, setModels] = useState<Model[]>([])
+	const [models, setModels] = useState<Model>({} as Model)
 
 	const { employeeData } = AuthUse()
 	const { GetConnection } = OfflineQueueUse()
@@ -133,9 +127,7 @@ export const CarProvider: React.FC<CarProviderProps> = ({ children }) => {
 	}, [loading, globalLoading, brands, models, LogOut, GetBrands, GetModels])
 
 	return (
-		<CarContext.Provider value={providerValue}>
-			{children}
-		</CarContext.Provider>
+		<CarContext.Provider value={providerValue}>{children}</CarContext.Provider>
 	)
 }
 

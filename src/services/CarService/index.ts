@@ -12,7 +12,7 @@ const getBrands = async () => {
 }
 
 const getModels = async (id: string) => {
-	return await HTTPClient.get<Model[]>(`/api/v1/carros/marcas/${id}/modelos/`)
+	return await HTTPClient.get<Model>(`/api/v1/carros/marcas/${id}/modelos/`)
 }
 
 export default {
